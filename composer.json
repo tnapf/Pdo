@@ -1,11 +1,11 @@
 {
-    "name": "commandstring/pdo",
+    "name": "tnapf/pdo",
     "description": "A PDO driver with additional features",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "CommandString\\Pdo\\": "src/"
+            "Tnapf\\Pdo\\": "src/"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace CommandString\Pdo;
+namespace Tnapf\Pdo;
 
 use Exception;
 use LogicException;
