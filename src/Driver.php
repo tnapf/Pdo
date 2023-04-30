@@ -26,7 +26,7 @@ use stdClass;
  * @method bool                         rollBack()                                                                                                  Rolls back a transaction
  * @method bool                         setAttribute(int $attribute, mixed $value)                                                                  Set an attribute
  * @method array                        getAvailableDrivers()                                                                                       Return an array of available PDO drivers
- * 
+ *
  * @method static bool                  beginTransaction()                                                                                          Initiates a transaction
  * @method static bool                  commit()                                                                                                    Commits a transaction
  * @method static ?string               errorCode()                                                                                                 Fetch the SQLSTATE associated with the last operation on the database handle
@@ -43,7 +43,7 @@ use stdClass;
  * @method static bool                  rollBack()                                                                                                  Rolls back a transaction
  * @method static bool                  setAttribute(int $attribute, mixed $value)                                                                  Set an attribute
  * @method static array                 getAvailableDrivers()                                                                                       Return an array of available PDO drivers
- * 
+ *
  * @method bool                 bindColumn(string|int $column, mixed &$var, int $type = PDO::PARAM_STR, int $maxLength = 0, mixed $driverOptions = null)    Bind a column to a PHP variable
  * @method bool                 bindParam(string|int $param, mixed &var, int $type = PDO::PARAM_STR, int $maxLength = 0, mixed $driverOptions = null)       Binds a parameter to the specified variable name
  * @method bool                 bindValue(string|int $param, mixed $value, int $type = PDO::PARAM_STR)                                                      Binds a value to a parameter
@@ -70,7 +70,7 @@ use stdClass;
  * @method bool                 setFetchMode(int $mode = PDO::FETCH_COLUMN, int $colno)                                                                     Set the default fetch mode for this statement
  * @method bool                 setFetchMode(int $mode = PDO::FETCH_COLUMN, int $colno)                                                                     Set the default fetch mode for this statement
  * @method bool                 setFetchMode(int $mode = PDO::FETCH_CLASS, string $class, ?array $constructorArgs = null)                                   Set the default fetch mode for this statement
- * @method bool                 setFetchMode(int $mode = PDO::FETCH_INTO, object $object)                                                                   Set the default fetch mode for this statement 
+ * @method bool                 setFetchMode(int $mode = PDO::FETCH_INTO, object $object)                                                                   Set the default fetch mode for this statement
  *
  * @method static bool          bindColumn(string|int $column, mixed &$var, int $type = PDO::PARAM_STR, int $maxLength = 0, mixed $driverOptions = null)    Bind a column to a PHP variable
  * @method static bool          bindParam(string|int $param, mixed &var, int $type = PDO::PARAM_STR, int $maxLength = 0, mixed $driverOptions = null)       Binds a parameter to the specified variable name
@@ -99,7 +99,7 @@ use stdClass;
  * @method static bool          setFetchMode(int $mode = PDO::FETCH_COLUMN, int $colno)                                                                     Set the default fetch mode for this statement
  * @method static bool          setFetchMode(int $mode = PDO::FETCH_CLASS, string $class, ?array $constructorArgs = null)                                   Set the default fetch mode for this statement
  * @method static bool          setFetchMode(int $mode = PDO::FETCH_INTO, object $object)                                                                   Set the default fetch mode for this statement
- *  
+ *
  * @method self         withUsername(string $username)  Sets the username used when connecting to the database
  * @method self         withPassword(string $password)  Sets the password used when connecting to the database
  * @method self         withDatabase(string $database)  Sets the database that is connected to database
@@ -108,7 +108,7 @@ use stdClass;
  * @method self         withOptions(array $options)     Sets the options used when connecting to the database
  * @method self         withDsn(string $dsn)            Sets the DSN used when connecting to the database
  * @method self         withPrefix(string $prefix)      Sets the DNS used when connecting to the database
- * 
+ *
  * @method static self  withUsername(string $username)  Sets the username used when connecting to the database
  * @method static self  withPassword(string $password)  Sets the password used when connecting to the database
  * @method static self  withDbName(string $database)    Sets the database that is connected to the database
@@ -117,12 +117,12 @@ use stdClass;
  * @method static self  withOptions(array $options)     Sets the options used when connecting to the database
  * @method static self  withDsn(string $dsn)            Sets the DSN used when connecting to the database
  * @method static self  withPrefix(string $prefix)      Sets the prefix used when connecting to the database
- * 
+ *
  * @method static \CommandString\Pdo\Sql\Statements\Select select()     Create a new select query
  * @method static \CommandString\Pdo\Sql\Statements\Update update()     Create a new update query
  * @method static \CommandString\Pdo\Sql\Statements\Insert insert()     Create a new insert query
  * @method static \CommandString\Pdo\Sql\Statements\Delete delete()     Create a new delete query
- * 
+ *
  * @method \CommandString\Pdo\Sql\Statements\Select select()            Create a new select query
  * @method \CommandString\Pdo\Sql\Statements\Update update()            Create a new update query
  * @method \CommandString\Pdo\Sql\Statements\Insert insert()            Create a new insert query
@@ -143,14 +143,14 @@ class Driver {
 
     /**
      * @var PDO $driver PDO's native driver
-     * 
+     *
      * @see https://www.php.net/manual/en/class.pdo.php
      */
     public readonly PDO $driver;
 
     /**
      * @var PDOStatement $statement The last PDOStatement instance PDO returns
-     * 
+     *
      * @see https://www.php.net/manual/en/class.pdostatement.php
      */
     public PDOStatement $statement;
@@ -186,12 +186,12 @@ class Driver {
     private array $options = [];
 
     /**
-     * @var self $singleton 
+     * @var self $singleton
      */
     private static self $instance;
 
     /**
-     * @param self $singleton if set to true the static method get will return this new instance.
+     * @param bool $singleton if set to true the static method get will return this new instance.
      */
     public function __construct(bool $singleton = false)
     {
@@ -204,7 +204,7 @@ class Driver {
 
     /**
      * Attempt to establish a connection with the database
-     * 
+     *
      * @return self
      */
     public function connect(): self
@@ -223,13 +223,13 @@ class Driver {
     }
 
     private static function buildDsn(string $prefix, stdClass|array $dsn_props) {
-        $dsn = "$prefix:";
+        $dsn = "{$prefix}:";
         foreach ($dsn_props as $name => $value) {
-            if (is_null($value)) {
+            if ($value === null) {
                 continue;
             }
 
-            $dsn .= "$name=$value;";
+            $dsn .= "{$name}={$value};";
         }
 
         return $dsn;
@@ -255,7 +255,7 @@ class Driver {
     {
         if (str_contains($name, "with")) {
             if (isset($this->driver)) {
-                trigger_error("Cannot modify $name property as the PDO driver has already been initialized.", E_USER_WARNING);
+                trigger_error("Cannot modify {$name} property as the PDO driver has already been initialized.", E_USER_WARNING);
                 return $this;
             }
 
@@ -271,7 +271,7 @@ class Driver {
                 $name = strtolower($name);
                 $this->setDsnProp($name, $value);
             }
-        } else if (method_exists("PDO", $name) && isset($this->driver)) {
+        } else if (isset($this->driver) && method_exists("PDO", $name)) {
             $return = $this->driver->$name(...$args);
 
             if ($return instanceof PDOStatement) {
@@ -279,24 +279,26 @@ class Driver {
             }
 
             return $return;
-        } else if (method_exists("PDOStatement", $name) && isset($this->statement)) {
+        } else if (isset($this->statement) && method_exists("PDOStatement", $name)) {
             return $this->statement->$name(...$args);
         }
 
         return $this;
     }
-    
+
     /**
      * Pass the $name and $args to the __call magic method after getting the instance from the static method property
-     * 
+     *
      * @param string $name
      * @param array $args
-     * 
+     *
      * @return mixed
+     * @throws Exception
+     * @throws Exception
      */
     public static function __callStatic($name, $args) {
         if ($name === "getAvailableDrivers") {
-            return self::get()->driver->getAvailableDrivers();
+            return self::get()->driver::getAvailableDrivers();
         }
 
         return self::get()->__call($name, $args);
@@ -308,10 +310,12 @@ class Driver {
 
     /**
      * Get the Driver instance stored in the static $instance property
-     * 
+     *
      * @return self
+     * @throws Exception
+     * @throws Exception
      */
-    public static function get(): self 
+    public static function get(): self
     {
         if (!isset(self::$instance)) {
             throw new Exception("No instances have been constructed with the singleton option enabled!");
@@ -322,13 +326,13 @@ class Driver {
 
     /**
      * Create a driver fit to connect to a mysql database
-     * 
+     *
      * **NOTE YOU HAVE TO INVOKE THE CONNECT METHOD YOURSELF!**
      * @param string $username
      * @param string $password
      * @param string $dbname
      * @param string $host
-     * @param string $port
+     * @param int $port
      * @param string|null $unix_socket
      * @param string|null $charset
      * @return Driver
@@ -345,13 +349,7 @@ class Driver {
     {
         return (new self)
             ->withDsn(
-                self::buildDsn(self::PREFIX_MYSQL, [
-                    "host" => $host,
-                    "port" => $port,
-                    "dbname" => $dbname,
-                    "unix_socket" => $unix_socket,
-                    "charset" => $charset
-                ])
+                self::buildDsn(self::PREFIX_MYSQL, compact('host', 'port', 'dbname', 'unix_socket', 'charset'))
             )
             ->withUsername($username)
             ->withPassword($password)
@@ -360,7 +358,7 @@ class Driver {
 
     /**
      * Creates a driver fit for connecting to a postgresql server
-     * 
+     *
      * **NOTE YOU HAVE TO INVOKE THE CONNECT METHOD YOURSELF!**
      * @param string $username
      * @param string $password
@@ -396,9 +394,9 @@ class Driver {
 
     /**
      * Creates a driver fit for opening an SQLite database
-     * 
+     *
      * **NOTE YOU HAVE TO INVOKE THE CONNECT METHOD YOURSELF!**
-     * @param string $db_path
+     * @param string $dbPath
      * @return self
      */
     public static function createSQLiteDriver(string $dbPath): self
@@ -407,7 +405,7 @@ class Driver {
         $path = realpath($dbPath);
 
         if (!$path) {
-            throw new InvalidArgumentException("$dbPath is not an existing file");
+            throw new InvalidArgumentException("{$dbPath} is not an existing file");
         }
 
         $driver->dsn = self::PREFIX_SQLITE.":{$dbPath}";
